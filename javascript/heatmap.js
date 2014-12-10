@@ -23,7 +23,6 @@ $(document).ready(function() {
 
   var geocodeData = [];
   function setConnections(network) {
-    debugger;
     for(i = 0; i < network.length; i++) {
     if (network[i].location != null) {
       console.log(network[i].location.name.replace("Area", '').toString())
@@ -42,7 +41,6 @@ function codeAddress(address) {
   geocoder.geocode( {'address': address}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
       //Make sure heatmap variable is accessible in this scope
-      heatmap.add()
       location["lat"] = results[0].geometry.location.k;
       location["lng"] = results[0].geometry.location.B;
       location["count"] = 1;
