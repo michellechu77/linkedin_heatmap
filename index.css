@@ -15,7 +15,7 @@ body {
   height: 100%;
 }
 
-h1{
+h2{
   position: absolute;
   text-align: center;
   font-size: 60px;
@@ -52,6 +52,7 @@ h5{
 
 .login{
   text-align: center;
+  padding-top: 20px;
 }
 
 .centered {
