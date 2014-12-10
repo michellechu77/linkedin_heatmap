@@ -17,24 +17,22 @@ function onLinkedInAuth() {
     IN.API.Connections("me")
     .params({"count":50})
     .fields("firstName", "lastName", "id", "location")
-    .result(function(result, metadata) {
-      setConnections(result.values, metadata);
+    .result(function(result,) {
+      setConnections(result.values);
     });
   }
 
   var heatmapData = [];
   var locationHash = {};
   function setConnections(network) {
-    for(i = 0; i < network.length; i++) {
-      // setTimeout(function(i, network) { return function(network) {
-      if (network[i].location != null) {
-        console.log(network[i].location.name.replace("Area", '').replace("Greater","").toString())
-        codeAddress(network[i].location.name.replace("Area", '').replace("Greater","").toString())
+      network.forEach(function doSetTimeout(connection) {
+         if (connection.location != null) {
+        console.log(connection.location.name.replace("Area", '').replace("Greater","").toString())
+        codeAddress(connection.location.name.replace("Area", '').replace("Greater","").toString())
       } else {
         console.log("No location in setConnections");
       }
-    };
-    // }(i), 1000)
+    });
   }
 
   function codeAddress(address) {
@@ -43,7 +41,7 @@ function onLinkedInAuth() {
       console.log("In Hash")
       drawMap();
     } else {
-     geocoder.geocode( {'address': address}, function(results, status) {
+     setTimeout(geocoder.geocode( {'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         var lat = results[0].geometry.location.k;
         var lng = results[0].geometry.location.B;
@@ -58,23 +56,24 @@ function onLinkedInAuth() {
         console.log("Failed")
       }
     });
+     ), 2500);
 
     }
   }
 
-  function doSetTimeout(i, network) {
-    setTimeout(function(x) {
-      console.log("SET TIMEOUT")
-      if (network[i].location != null) {
-        console.log(i)
-        console.log(network[i].location.name.replace("Area", '').replace("Greater","").toString())
-        codeAddress(network[i].location.name.replace("Area", '').replace("Greater","").toString())
-      } else {
-        console.log("No location in setConnections");
-      }
+  // function doSetTimeout(i, network) {
+  //   setTimeout(function(x) {
+  //     console.log("SET TIMEOUT")
+  //     if (network[i].location != null) {
+  //       console.log(i)
+  //       console.log(network[i].location.name.replace("Area", '').replace("Greater","").toString())
+  //       codeAddress(network[i].location.name.replace("Area", '').replace("Greater","").toString())
+  //     } else {
+  //       console.log("No location in setConnections");
+  //     }
 
-    }, 10000);
-  }
+  //   }, 10000);
+  // }
 
   function displayProfiles(profiles) {
     $(".login").hide()
