@@ -45,7 +45,8 @@ function onLinkedInAuth() {
         drawMap()
       } else {
       }
-    // }) , 20000 )
+    })
+     // , 20000 )
 
   }
 
