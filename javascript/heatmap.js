@@ -1,11 +1,7 @@
 $(document).ready(function() {
   geocoder = new google.maps.Geocoder();
 
-  var heatmap = new google.maps.visualization.HeatmapLayer
-
   google.maps.event.addDomListener(window, "load", initialize);
-
-  onLinkedInLoad()
 
 });
 
@@ -39,7 +35,8 @@ function onLinkedInAuth() {
   }
 
   function codeAddress(address) {
-    setTimeout(  geocoder.geocode( {'address': address}, function(results, status) {
+    // setTimeout(
+     geocoder.geocode( {'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         var lat = results[0].geometry.location.k;
         var lng = results[0].geometry.location.B;
@@ -48,11 +45,13 @@ function onLinkedInAuth() {
         drawMap()
       } else {
       }
-    }) , 20000 )
+    // }) , 20000 )
 
   }
 
   function displayProfiles(profiles) {
+    $(".login").hide()
+
     member = profiles.values[0];
     document.getElementById("greeting").innerHTML =
     "<p id=\"" + member.id + "\">Howdy, " +  member.firstName + " " + member.lastName + "</p>" + "<p> Title: " + member.headline + "</p>";
@@ -80,10 +79,4 @@ function onLinkedInAuth() {
       zoom: 4,
       mapTypeId: google.maps.MapTypeId.MAP
     });
-
-    heatmap = new google.maps.visualization.HeatmapLayer({
-      data: heatmapData
-    });
-
-    heatmap.setMap(map);
   }
