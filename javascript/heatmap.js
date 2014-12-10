@@ -67,40 +67,27 @@ function codeAddress(address) {
     }
   }
 
-   function initialize() {
-        var myLatlng = new google.maps.LatLng(25.6586, -80.3568);
-        // map options,
-        var myOptions = {
-          zoom: 4,
-          center: myLatlng
-        };
-        // standard map
-        geocoder = new google.maps.Geocoder();
-        map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-        // heatmap layer
-        heatmap = new HeatmapOverlay(map,
-          {
-            // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-            "radius": 2,
-            "maxOpacity": 1,
-            // scales the radius based on map zoom
-            "scaleRadius": true,
-            // if set to false the heatmap uses the global maximum for colorization
-            // if activated: uses the data maximum within the current map boundaries
-            //   (there will always be a red spot with useLocalExtremas true)
-            "useLocalExtrema": true,
-            // which field name in your data represents the latitude - default "lat"
-            latField: 'lat',
-            // which field name in your data represents the longitude - default "lng"
-            lngField: 'lng',
-            // which field name in your data represents the data value - default "value"
-            valueField: 'count'
-          }
-        );
-        var testData = {
-          max:100,
-          min: 0,
-          data: [{lat:-77.0277, lng:38.89, count:1}]
-        };
-        heatmap.setData(testData);
-      }
+  function drawMap() {
+    heatmap = new google.maps.visualization.HeatmapLayer({
+      data: heatmapData
+    });
+    heatmap.setMap(map);
+  }
+
+  function initialize() {
+    var heatmapData = [];
+
+    var unitedStates = new google.maps.LatLng(39.8282, -98.5795);
+
+    map = new google.maps.Map(document.getElementById('map-canvas'), {
+      center: unitedStates,
+      zoom: 4,
+      mapTypeId: google.maps.MapTypeId.MAP
+    });
+
+    heatmap = new google.maps.visualization.HeatmapLayer({
+      data: heatmapData
+    });
+
+    heatmap.setMap(map);
+  }
