@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="./stylesheets/normalize.css">
 <link rel="stylesheet" href="./stylesheets/index.css">
+<link rel="stylesheet" href="./stylesheets/normalize.css">
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false&key=AIzaSyCpCjcSI0gbJF9NdnAJc3ff1UtQ_ZMqgNo"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="./javascript/heatmap.js"></script>
@@ -16,22 +16,20 @@
 
 </head>
 <body>
-<body>
-<%= erb :'/partials/_header' %>
-<div class="container">
-<div class="line"></div>
-    <%= yield %>
 
-<!-- 3. Displays a button to let the viewer authenticate -->
-<script type="IN/Login"></script>
-
-<!-- 4. Placeholder for the greeting -->
-<div id="greeting"></div>
-<div id="profile"></div>
-<div id="positions"><ul></ul></div>
-<div id="skills"><ol></ol></div>
-<div id="connections"></div>
-<div id="map-canvas"></div>
-</div>
+  <div class="container">
+  <div class="header">
+    <h1>LinkedIn Heat Map</h1>
+    <h5>Where is your network located?</h5>
+  </div>
+  <div class="line"></div>
+  <div class="login"><script type="IN/Login"></script>helloo</div>
+    <div id="greeting"></div>
+    <div id="profile"></div>
+    <div id="positions"><ul></ul></div>
+    <div id="skills"><ol></ol></div>
+    <div id="connections"></div>
+    <div id="map-canvas"></div>
+  </div>
 </body>
 </html>
