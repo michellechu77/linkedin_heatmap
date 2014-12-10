@@ -1,7 +1,5 @@
-/*html {
+html {
   height: 100%;
-  margin:0;
-  padding:0;
 }
 
 body {
@@ -14,15 +12,15 @@ body {
 }
 
 #map-canvas {
-  height: 100%
-}*/
+  height: 100%;
+}
 
 h1{
   position: absolute;
- /* text-align: center;
+  text-align: center;
   font-size: 60px;
   text-shadow: 2px 2px #FAF4B1;
-  color: #45AAB8;*/
+  color: #45AAB8;
 }
 
 h5{
