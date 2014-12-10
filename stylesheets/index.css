@@ -1,0 +1,72 @@
+body {
+  font-family: 'Alegreya Sans SC', sans-serif;
+  background:#FAF4B1;
+  color: #394240;
+}
+
+h1{
+  text-align: center;
+  font-size: 60px;
+  text-shadow: 2px 2px #FAF4B1;
+  color: #45AAB8;
+}
+
+h5{
+  text-align: center;
+  font-size: 15px;
+  color: #FAF4B1;
+}
+
+.new_list h5{
+  text-align: center;
+  font-size: 15px;
+  color: #394240;
+}
+
+th {
+  text-align: center;
+}
+
+a {
+  color: #45AAB8;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+a:hover{
+  color: #394240;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  background: #FAF4B1;
+}
+
+.header{
+  background-color: #394240;
+  height: 250px;
+
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.line {
+  height: 10px;
+  float: bottom;
+  background: #45AAB8;
+}
+
+.login{
+  text-align: center;
+}
+
+.centered {
+  text-align: center;
+}
+
+#map-canvas {
+  height: 100%
+}
