@@ -55,17 +55,12 @@ function onLinkedInAuth() {
   function displayProfiles(profiles) {
     member = profiles.values[0];
     document.getElementById("greeting").innerHTML =
-    "<p id=\"" + member.id + "\">Hello " +  member.firstName + " " + member.lastName + "</p>";
-    document.getElementById("profile").innerHTML =
+    "<p id=\"" + member.id + "\">Howdy, " +  member.firstName + " " + member.lastName + "</p>";
+    document.getElementById("photo").innerHTML =
     "<img src=" + "'" + member.pictureUrl + "'" + ">"
 
-    for(i = 0; i < member.positions.values.length; i++) {
-      $("#positions ul").append("<li>" + member.positions.values[i].title + " at " + member.positions.values[i].company.name + "</li>")
-    }
-
-    for(i = 0; i < member.skills.values.length; i++) {
-      $("#skills ol").append("<li>" + member.skills.values[i].skill.name + "</li>")
-    }
+    document.getElementById("info").innerHTML =
+    "<p>" +  member.headline + " currently located at " + member.location.name + "</p>";
   }
 
   function drawMap() {
