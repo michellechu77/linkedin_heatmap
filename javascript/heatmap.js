@@ -81,18 +81,31 @@ function getLatLng(results, status) {
     };
   }
 
-  function displayProfiles(profiles) {
-    $(".login").hide()
-
-    member = profiles.values[0];
-    document.getElementById("greeting").innerHTML =
-    "<p id=\"" + member.id + "\">Howdy, " +  member.firstName + " " + member.lastName + "</p>" + "<p> Title: " + member.headline + "</p>";
-    document.getElementById("photo").innerHTML =
-    "<img src=" + "'" + member.pictureUrl + "'" + ">"
-
-    document.getElementById("info").innerHTML =
-    "<p> You are currently located in " +  member.location.name + "</p>";
+function displayMyLocation(member) {
+    var myLocation;
+    geocoder.geocode( {'address': member.location.name.replace("Area", "").replace("Greater","")}, function(results, status) {
+      myLocation = getLatLng(results, status);
+      var marker = new google.maps.Marker({
+        position: myLocation,
+        map: map,
+        title:"Current Location"
+      });
+    marker.setMap(map);
+    });
   }
+
+function displayProfiles(profiles) {
+  $(".login").hide()
+
+  member = profiles.values[0];
+  document.getElementById("greeting").innerHTML =
+  "<p id=\"" + member.id + "\">Howdy, " +  member.firstName + " " + member.lastName + "</p>" + "<p> Title: " + member.headline + "</p>";
+  document.getElementById("photo").innerHTML =
+  "<img src=" + "'" + member.pictureUrl + "'" + ">"
+
+  document.getElementById("info").innerHTML =
+  "<p> You are currently located in " +  member.location.name + "</p>";
+}
 
   function drawMap() {
     heatmap = new google.maps.visualization.HeatmapLayer({
