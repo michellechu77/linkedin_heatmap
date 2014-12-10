@@ -16,20 +16,22 @@
 
 </head>
 <body>
+<body>
+<%= erb :'/partials/_header' %>
+<div class="container">
+<div class="line"></div>
+    <%= yield %>
 
-  <div class="container">
-  <div class="header">
-    <h1>LinkedIn Heat Map</h1>
-    <h5>Where is your network located?</h5>
-  </div>
-  <div class="line"></div>
-  <div class="login"><script type="IN/Login"></script>helloo</div>
-    <div id="greeting"></div>
-    <div id="profile"></div>
-    <div id="positions"><ul></ul></div>
-    <div id="skills"><ol></ol></div>
-    <div id="connections"></div>
-    <div id="map-canvas"></div>
-  </div>
+<!-- 3. Displays a button to let the viewer authenticate -->
+<script type="IN/Login"></script>
+
+<!-- 4. Placeholder for the greeting -->
+<div id="greeting"></div>
+<div id="profile"></div>
+<div id="positions"><ul></ul></div>
+<div id="skills"><ol></ol></div>
+<div id="connections"></div>
+<div id="map-canvas"></div>
+</div>
 </body>
 </html>
