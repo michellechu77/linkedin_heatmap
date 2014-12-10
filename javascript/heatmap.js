@@ -105,6 +105,8 @@ function displayProfiles(profiles) {
 
   document.getElementById("info").innerHTML =
   "<p> You are currently located in " +  member.location.name + "</p>";
+
+  displayMyLocation(member);
 }
 
   function drawMap() {
