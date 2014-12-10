@@ -43,12 +43,10 @@ function onLinkedInAuth() {
     } else {
      setTimeout(geocoder.geocode( {'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        var lat = results[0].geometry.location.k;
-        var lng = results[0].geometry.location.B;
-        var location = new google.maps.LatLng(lat, lng);
-        locationHash[address] = location;
-        console.log(location)
-        heatmapData.push(location);
+        loc = getLatLng(results, status)
+        locationHash[address] = loc;
+        console.log(loc)
+        heatmapData.push(loc);
         drawMap();
       } else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
         console.log("OVER LIMIT")
