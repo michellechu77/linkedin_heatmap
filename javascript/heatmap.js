@@ -1,62 +1,63 @@
 $(document).ready(function() {
-  onLinkedInLoad()
+  geocoder = new google.maps.Geocoder();
+
+  var heatmap = new google.maps.visualization.HeatmapLayer
 
   google.maps.event.addDomListener(window, "load", initialize);
-  });
 
-  function onLinkedInLoad() {
-    IN.Event.on(IN, "auth", onLinkedInAuth);
-  }
+  onLinkedInLoad()
 
-  function onLinkedInAuth() {
-    IN.API.Profile("me")
-    .fields("firstName", "lastName", "id","industry", "pictureUrl", "distance", "skills", "positions", "educations", "location")
-    .result(displayProfiles);
+});
+
+function onLinkedInLoad() {
+  IN.Event.on(IN, "auth", onLinkedInAuth);
+}
+
+function onLinkedInAuth() {
+    // IN.API.Profile("me")
+    // .fields("firstName", "lastName", "id","industry", "pictureUrl", "distance", "skills", "positions", "educations", "location")
+    // .result(displayProfiles);
 
     IN.API.Connections("me")
-      .params({"count":4})
-      .fields("firstName", "lastName", "id", "location")
-      .result(function(result, metadata) {
+    .params({"count":50})
+    .fields("firstName", "lastName", "id", "location")
+    .result(function(result, metadata) {
       setConnections(result.values, metadata);
     });
   }
 
-  var geocodeData = [];
+  var heatmapData = [];
   function setConnections(network) {
     for(i = 0; i < network.length; i++) {
-    if (network[i].location != null) {
-      console.log(network[i].location.name.replace("Area", '').toString())
-      console.log("*******")
-      geocodeData.push(codeAddress(network[i].location.name.replace("Area", '').toString()))
-      console.log(geocodeData)
-    } else {
-      console.log("No location in setConnections");
+      if (network[i].location != null) {
+        console.log(network[i].location.name.replace("Area", '').replace("Greater","").toString())
+        codeAddress(network[i].location.name.replace("Area", '').replace("Greater","").toString())
+      } else {
+        console.log("No location in setConnections");
+      }
     }
-   }
-   return geocodeData
   }
 
-function codeAddress(address) {
-  var location = {}
-  geocoder.geocode( {'address': address}, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      //Make sure heatmap variable is accessible in this scope
-      location["lat"] = results[0].geometry.location.k;
-      location["lng"] = results[0].geometry.location.B;
-      location["count"] = 1;
-    } else {
-      location["fail"] = "FAIL"
-    }
-  return location;
-  });
-}
+  function codeAddress(address) {
+    setTimeout(  geocoder.geocode( {'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var lat = results[0].geometry.location.k;
+        var lng = results[0].geometry.location.B;
+        var location = new google.maps.LatLng(lat, lng)
+        heatmapData.push(location);
+        drawMap()
+      } else {
+      }
+    }) , 20000 )
+
+  }
 
   function displayProfiles(profiles) {
     member = profiles.values[0];
     document.getElementById("greeting").innerHTML =
-      "<p id=\"" + member.id + "\">Hello " +  member.firstName + " " + member.lastName + "</p>";
+    "<p id=\"" + member.id + "\">Hello " +  member.firstName + " " + member.lastName + "</p>";
     document.getElementById("profile").innerHTML =
-      "<img src=" + "'" + member.pictureUrl + "'" + ">"
+    "<img src=" + "'" + member.pictureUrl + "'" + ">"
 
     for(i = 0; i < member.positions.values.length; i++) {
       $("#positions ul").append("<li>" + member.positions.values[i].title + " at " + member.positions.values[i].company.name + "</li>")
