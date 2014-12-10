@@ -72,6 +72,14 @@ function onLinkedInAuth() {
 
   //   }, 10000);
   // }
+function getLatLng(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      var lat = results[0].geometry.location.k;
+      var lng = results[0].geometry.location.B;
+      loc = new google.maps.LatLng(lat, lng);
+      return loc;
+    };
+  }
 
   function displayProfiles(profiles) {
     $(".login").hide()
