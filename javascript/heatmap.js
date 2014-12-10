@@ -55,12 +55,12 @@ function onLinkedInAuth() {
   function displayProfiles(profiles) {
     member = profiles.values[0];
     document.getElementById("greeting").innerHTML =
-    "<p id=\"" + member.id + "\">Howdy, " +  member.firstName + " " + member.lastName + "</p>";
+    "<p id=\"" + member.id + "\">Howdy, " +  member.firstName + " " + member.lastName + "</p>" + "<p> Title: " + member.headline + "</p>";
     document.getElementById("photo").innerHTML =
     "<img src=" + "'" + member.pictureUrl + "'" + ">"
 
     document.getElementById("info").innerHTML =
-    "<p>" +  member.headline + " currently located at " + member.location.name + "</p>";
+    "<p> You are currently located in " +  member.location.name + "</p>";
   }
 
   function drawMap() {
