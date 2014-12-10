@@ -14,9 +14,9 @@ function onLinkedInLoad() {
 }
 
 function onLinkedInAuth() {
-    // IN.API.Profile("me")
-    // .fields("firstName", "lastName", "id","industry", "pictureUrl", "distance", "skills", "positions", "educations", "location")
-    // .result(displayProfiles);
+    IN.API.Profile("me")
+    .fields("firstName", "lastName","id", "headline", "pictureUrl", "location")
+    .result(displayProfiles);
 
     IN.API.Connections("me")
     .params({"count":50})
