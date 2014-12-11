@@ -57,7 +57,7 @@ function codeAddress(address) {
 function getLatLng(results, status) {
   if (status == google.maps.GeocoderStatus.OK) {
     var lat = results[0].geometry.location.k;
-    var lng = results[0].geometry.location.B;
+    var lng = results[0].geometry.location.D;
     loc = new google.maps.LatLng(lat, lng);
     return loc;
   };
