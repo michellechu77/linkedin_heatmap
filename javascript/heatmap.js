@@ -17,7 +17,7 @@ function onLinkedInAuth() {
     IN.API.Connections("me")
     .params({"count":50})
     .fields("firstName", "lastName", "id", "location")
-    .result(function(resultg) {
+    .result(function(result) {
       setConnections(result.values);
     });
   }
