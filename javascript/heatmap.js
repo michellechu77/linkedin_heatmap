@@ -53,8 +53,7 @@ function onLinkedInAuth() {
       } else {
         console.log("Failed")
       }
-    });
-     ), 2500);
+    });, 2500);
 
     }
   }
