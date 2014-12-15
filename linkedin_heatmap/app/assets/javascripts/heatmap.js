@@ -2,6 +2,21 @@ $(document).ready(function() {
   geocoder = new google.maps.Geocoder();
 
   google.maps.event.addDomListener(window, "load", initialize);
+
+  $('#dropdown').change(function(){
+    var value  = $("#dropdown option:selected").text();
+    $.ajax({
+    url: '/connections',
+    type: 'GET',
+    data: {location: value},
+    dataType: "json"
+    }).done(function(response){
+      $('#list').empty();
+      $.each(response, function(val, text) {
+      $('#list').append('<li>' + text +'</li>');
+      });
+    });
+  });
 });
 
 function onLinkedInLoad() {
@@ -14,7 +29,7 @@ function onLinkedInAuth() {
   .result(displayProfiles);
 
   IN.API.Connections("me")
-  .params({"count":50})
+  .params({"count":10})
   .fields("firstName", "lastName", "id", "location")
   .result(function(result) {
     setConnections(result.values);
@@ -22,14 +37,26 @@ function onLinkedInAuth() {
 }
 
 var heatmapData = [];
-var locationHash = {};
 
 function setConnections(network) {
-  network.forEach(doSetTimeout);
-  drawMap();
+  network.forEach(codeLocation);
+  setDropDown(network);
 }
 
-function doSetTimeout(element) {
+function setDropDown(network) {
+   $.ajax({
+    url: '/connections',
+    type: 'POST',
+    data: {network: network},
+    dataType: "json"
+  }).done(function(response){
+    $.each(response, function(val, text) {
+    $('#dropdown').append( new Option(text,val) );
+    });
+  });
+}
+
+function codeLocation(element) {
   if (element.location != null) {
       codeAddress(element.location.name);
     } else {
@@ -39,7 +66,6 @@ function doSetTimeout(element) {
 
 function codeAddress(address) {
   address = address.replace("Area", '').replace("Greater","").trim()
-  console.log(address)
   $.ajax({
     url: '/locations',
     type: 'POST',
@@ -48,6 +74,7 @@ function codeAddress(address) {
   }).done(function(response){
     heatspot = new google.maps.LatLng(response["longitude"], response["latitude"])
     heatmapData.push(heatspot);
+    drawMap();
   });
 
   // if (locationHash[address] != null) {
@@ -69,14 +96,14 @@ function codeAddress(address) {
   // }
 }
 
-// function getLatLng(results, status) {
-//   if (status == google.maps.GeocoderStatus.OK) {
-//     var lat = results[0].geometry.location.k;
-//     var lng = results[0].geometry.location.D;
-//     loc = new google.maps.LatLng(lat, lng);
-//     return loc;
-//   };
-// }
+function getLatLng(results, status) {
+  if (status == google.maps.GeocoderStatus.OK) {
+    var lat = results[0].geometry.location.k;
+    var lng = results[0].geometry.location.D;
+    loc = new google.maps.LatLng(lat, lng);
+    return loc;
+  };
+}
 
 function displayMyLocation(member) {
   var myLocation;
@@ -106,7 +133,8 @@ function displayProfiles(profiles) {
 
 function drawMap() {
   heatmap = new google.maps.visualization.HeatmapLayer({
-    data: heatmapData
+    data: heatmapData,
+    radius: 20
   });
   heatmap.setMap(map);
 }
