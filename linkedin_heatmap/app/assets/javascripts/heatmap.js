@@ -17,6 +17,15 @@ $(document).ready(function() {
       });
     });
   });
+
+  $('#logout').click(function(){
+    $.ajax({
+    url: '/connections/logout',
+    type: 'GET',
+    }).done(function(response){
+      window.location = "http://localhost:3000/"
+    });
+  });
 });
 
 function onLinkedInLoad() {
@@ -34,6 +43,9 @@ function onLinkedInAuth() {
   .result(function(result) {
     setConnections(result.values);
   });
+
+  $("#logout").show();
+  $("#dropdown").show();
 }
 
 var heatmapData = [];
@@ -134,7 +146,7 @@ function displayProfiles(profiles) {
 function drawMap() {
   heatmap = new google.maps.visualization.HeatmapLayer({
     data: heatmapData,
-    radius: 20
+    radius: 10
   });
   heatmap.setMap(map);
 }

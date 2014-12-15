@@ -35,6 +35,17 @@ class ConnectionsController < ApplicationController
     end
   end
 
+  def logout
+    Connection.delete_all
+    reset_session
+
+    respond_to do |format|
+      if true
+        format.json {render :json => nil}
+      end
+    end
+  end
+
   private
 
   def connection_params

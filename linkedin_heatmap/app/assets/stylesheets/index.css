@@ -61,10 +61,21 @@ h5{
   text-align: center;
 }
 
+#logout {
+  float: right;
+  padding-right: 8px;
+  display: none;
+}
+
 #map-canvas {
   height: 100%
 }
 
 #list {
   list-style-type: none;
+  padding-right: 10px;
+}
+
+#dropdown {
+  display: none;
 }
