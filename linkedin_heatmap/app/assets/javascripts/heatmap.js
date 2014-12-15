@@ -38,7 +38,7 @@ function onLinkedInAuth() {
   .result(displayProfiles);
 
   IN.API.Connections("me")
-  .params({"count":10})
+  .params({"count":300})
   .fields("firstName", "lastName", "id", "location")
   .result(function(result) {
     setConnections(result.values);
@@ -62,6 +62,8 @@ function setDropDown(network) {
     data: {network: network},
     dataType: "json"
   }).done(function(response){
+    console.log("success")
+    console.log(response)
     $.each(response, function(val, text) {
     $('#dropdown').append( new Option(text,val) );
     });
@@ -146,7 +148,7 @@ function displayProfiles(profiles) {
 function drawMap() {
   heatmap = new google.maps.visualization.HeatmapLayer({
     data: heatmapData,
-    radius: 10
+    radius: 15
   });
   heatmap.setMap(map);
 }

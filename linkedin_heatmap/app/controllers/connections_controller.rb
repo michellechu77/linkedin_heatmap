@@ -22,11 +22,13 @@ class ConnectionsController < ApplicationController
   def create
     locations = []
     params["network"].each_value do |connection|
-      location = Location.where(name: connection["location"]["name"].remove("Greater").remove("Area").strip).first
-      Connection.create(first_name: connection["firstName"], last_name: connection["lastName"], location_id: location.id)
-      locations << location.name
+      if connection["id"] != "private"
+        location = Location.where(name: connection["location"]["name"].remove("Greater").remove("Area").strip).first
+        Connection.create(first_name: connection["firstName"], last_name: connection["lastName"], location_id: location.id)
+        locations << location.name
+      end
     end
-      locations = locations.uniq
+    locations = locations.uniq
 
     respond_to do |format|
       if true

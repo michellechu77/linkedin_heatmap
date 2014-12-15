@@ -11,15 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141212213504) do
+ActiveRecord::Schema.define(version: 20141214001151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "connections", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "location_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "locations", force: true do |t|
     t.string   "name"
-    t.string   "latitude"
-    t.string   "longitude"
+    t.float    "latitude"
+    t.float    "longitude"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
