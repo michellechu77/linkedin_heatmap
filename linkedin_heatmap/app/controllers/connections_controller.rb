@@ -38,13 +38,12 @@ class ConnectionsController < ApplicationController
   end
 
   def logout
+    puts "*" * 100
     Connection.delete_all
     reset_session
 
     respond_to do |format|
-      if true
-        format.json {render :json => nil}
-      end
+      format.json {render :json => []}
     end
   end
 

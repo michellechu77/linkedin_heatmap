@@ -18,12 +18,13 @@ $(document).ready(function() {
     });
   });
 
-  $('#logout').click(function(){
+  $('.header').on('click',"#logout",function(){
     $.ajax({
     url: '/connections/logout',
     type: 'GET',
     }).done(function(response){
-      window.location = "http://localhost:3000/"
+      console.log("GOODBYE")
+      window.location = "https://linkedin-heatmap.herokuapp.com/"
     });
   });
 });
@@ -38,14 +39,13 @@ function onLinkedInAuth() {
   .result(displayProfiles);
 
   IN.API.Connections("me")
-  .params({"count":300})
+  .params({"count":200})
   .fields("firstName", "lastName", "id", "location")
   .result(function(result) {
     setConnections(result.values);
   });
 
   $("#logout").show();
-  $("#dropdown").show();
 }
 
 var heatmapData = [];
@@ -62,8 +62,7 @@ function setDropDown(network) {
     data: {network: network},
     dataType: "json"
   }).done(function(response){
-    console.log("success")
-    console.log(response)
+    $("#dropdown").show();
     $.each(response, function(val, text) {
     $('#dropdown').append( new Option(text,val) );
     });
@@ -148,7 +147,7 @@ function displayProfiles(profiles) {
 function drawMap() {
   heatmap = new google.maps.visualization.HeatmapLayer({
     data: heatmapData,
-    radius: 15
+    radius: 20
   });
   heatmap.setMap(map);
 }
